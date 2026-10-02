@@ -1,0 +1,51 @@
+<!-- catalogo/templates/catalogo/detalle.html -->
+{% extends "catalogo/base.html" %}
+
+{% block titulo %}{{ cancion.titulo }}{% endblock %}
+
+{% block contenido %}
+<h2>{{ cancion.titulo }}</h2>
+<p><strong>Genero:</strong> {{ playlist.genero }}</p>
+<p><strong>Subgenero:</strong> {{ playlist.subgenero }}</p>
+
+<h2>Canciones</h2>
+<table>
+    <tr>
+        <th>Título</th>
+        <th>Artista</th>
+        <th>Duración</th>
+        <th>Popularidad</th>
+    </tr>
+    {% for c in page_obj %}
+
+    <tr>
+        <td>
+            <a href="{% url 'catalogo:detalle' pk=c.pk %}">{{ c.titulo }}</a>
+        </td>
+        <td>{{ c.artista }}</td>
+        <td>{{ c.duracion }}</td>
+        <td>{{ c.popularidad }}</td>
+    </tr>
+    {% empty %}
+    
+    <tr>
+        <td colspan="4">No hay canciones que coincidan.</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+<p><strong>Lanzamiento:</strong> {{ cancion.fecha_lanzamiento }}</p>
+<p><strong>Duración:</strong> {{ cancion.duracion }}</p>
+<p><strong>Popularidad:</strong> {{ cancion.popularidad }}</p>
+
+<h3>Aparece en {{ cancion.playlists.count }} playlist{{ cancion.playlists.count|pluralize }}</h3>
+<ul>
+    {% for p in cancion.playlists.all %}
+    <li>{{ p.nombre }} ({{ p.genero }}, {{ p.subgenero }})</li>
+    {% endfor %}
+</ul>
+
+<p><a href="{% url 'catalogo:lista' %}">Volver a la lista</a></p>
+{% endblock %}

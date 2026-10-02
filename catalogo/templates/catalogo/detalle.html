@@ -4,7 +4,7 @@
 {% block titulo %}{{ cancion.titulo }}{% endblock %}
 
 {% block contenido %}
-<h2>{{ cancion.titulo }}</h2>
+<h2>{{ c.titulo }}</h2>
 <p><strong>Artista:</strong> {{ cancion.artista }}</p>
 <p><strong>Álbum:</strong> {{ cancion.album|default:"Sin álbum" }}</p>
 <p><strong>Lanzamiento:</strong> {{ cancion.fecha_lanzamiento }}</p>
@@ -14,7 +14,10 @@
 <h3>Aparece en {{ cancion.playlists.count }} playlist{{ cancion.playlists.count|pluralize }}</h3>
 <ul>
     {% for p in cancion.playlists.all %}
-    <li>{{ p.nombre }} ({{ p.genero }}, {{ p.subgenero }})</li>
+    <li>
+        <a href="{% url 'catalogo:playlist_detallada' pk=p.pk %}">{{ p.nombre }}</a>
+        ({{ p.genero }}, {{ p.subgenero }})
+    </li>
     {% endfor %}
 </ul>
 
