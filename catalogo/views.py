@@ -27,10 +27,10 @@ def lista_canciones(request):
     if genero:
             canciones = canciones.filter(
                  playlists__genero=genero
-            )
+            ).distinct()
 
     if artista:
-        canciones = canciones.filter(artista__iexact=artista)
+        canciones = canciones.filter(artista__iexact=artista).distinct()
 
     paginator = Paginator(canciones, 25)
     page_obj = paginator.get_page(request.GET.get("page"))

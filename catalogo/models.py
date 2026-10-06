@@ -20,7 +20,8 @@ class Cancion(models.Model):
     duracion_ms = models.PositiveIntegerField()
     
     fecha_lanzamiento = models.CharField(max_length=10, blank=True)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    creada_en = models.DateTimeField(auto_now_add=True)
+    #fecha_creacion = models.DateTimeField(auto_now_add=True)
     playlists = models.ManyToManyField(Playlist, related_name='canciones')
     
     class Meta:
